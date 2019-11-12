@@ -135,23 +135,28 @@ class Dados {
 		let detalhes = deputado.obterDetalhes();
 		
 		$('#deputado').append(`
-			<img src="${deputado.URLFoto}" class="img-fluid" alt="${deputado.nome}">
-			<h5>${deputado.nome}</h5>
-			<p>Partido: <a href="partido.html?partido=${deputado.partido}">${deputado.partido}</a></p>
-			<p>CPF: <a href="partido.html?partido=${deputado.partido}">${deputado.partido}</a></p>
-			<p>Data de Nascimento: ${deputado.partido}</p>
-			<p>Data de Nascimento: ${deputado.partido}</p>
-			<p>Data de Nascimento: ${deputado.partido}</p>
-			<p>Data de Nascimento: ${deputado.partido}</p>
-			<p>Data de Nascimento: ${deputado.partido}</p>
-			<p>Data de Nascimento: ${deputado.partido}</p>
-			<p>Data de Nascimento: ${deputado.partido}</p>
-			<p>Data de Nascimento: ${deputado.partido}</p>
-			<p>Data de Nascimento: ${deputado.partido}</p>
-			<p>Data de Nascimento: ${deputado.partido}</p>
-			<p>Data de Nascimento: ${deputado.partido}</p>
-
-
+			<div class="col-sm-12 col-md-6 col-lg-4">
+				<img src="${deputado.URLFoto}" class="img-fluid" alt="${deputado.nome}">
+			</div>
+			<div class="col-sm-12 col-md-6 col-lg-8">
+				<h2 class="display-1">${deputado.nome}</h2>
+				<hr>
+				<p>Partido: <a href="partido.html?partido=${deputado.partido}">${deputado.partido}</a></p>
+			</div>
+			<div class="col-sm-12 col-md-8">
+				<p>CPF: <a href="partido.html?partido=${deputado.partido}">${deputado.partido}</a></p>
+				<p>Data de Nascimento: ${deputado.partido}</p>
+				<p>Data de Nascimento: ${deputado.partido}</p>
+				<p>Data de Nascimento: ${deputado.partido}</p>
+				<p>Data de Nascimento: ${deputado.partido}</p>
+				<p>Data de Nascimento: ${deputado.partido}</p>
+				<p>Data de Nascimento: ${deputado.partido}</p>
+				<p>Data de Nascimento: ${deputado.partido}</p>
+				<p>Data de Nascimento: ${deputado.partido}</p>
+				<p>Data de Nascimento: ${deputado.partido}</p>
+				<p>Data de Nascimento: ${deputado.partido}</p>
+				<p>Data de Nascimento: ${deputado.partido}</p>
+			</div>
 		`);
 	}
 }
