@@ -167,7 +167,7 @@ class Dados {
 							</li>
 						</ul>
 						<hr>
-						<button type="button" class="btn btn-warning justify-content-end">Seguir deputado</button>
+						<button type="button" class="btn btn-warning justify-content-end">Seguir deputad${detalhes.sexo == 'M'? 'o' : 'a'}</button>
 					</div>
 				</div>
 			</div>
