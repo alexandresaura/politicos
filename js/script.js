@@ -236,7 +236,37 @@ class Dados {
 				</div>
 			</div>
 		`;
-		let despesasConteudo = `Aqui irão as despesas`;
+		let despesasConteudo = `
+			<ul style="list-style-type: none; padding: 0;">
+		`;
+
+		let despesasMap = new Map();
+		despesas.forEach(element => {
+			if(despesasMap.has(element.tipoDespesa)) {
+				despesasMap.set(element.tipoDespesa, despesasMap.get(element.tipoDespesa) + element.valorLiquido);
+			} else {
+				despesasMap.set(element.tipoDespesa, element.valorLiquido);
+			}
+		});
+
+		let despesasArray = new Array();
+		despesasMap.forEach((value, key) => {
+			despesasArray.push(key);
+		});
+
+		despesasArray.sort();
+
+		despesasArray.forEach(element => {
+			despesasConteudo += `
+				<li>
+					<p><strong class="h6">${element}:</strong> ${despesasMap.get(element).toFixed(2)}</p>
+				</li>
+			`;
+		});
+		
+		despesasConteudo += `
+			</ul>
+		`;
 
 		let discursosCard = `
 			<!-- Discursos -->
@@ -272,7 +302,43 @@ class Dados {
 				</div>
 			</div>
 		`;
-		let eventosConteudo = `Aqui irão os eventos`;
+
+		let eventosConteudo = `
+			<ul style="list-style-type: none; padding: 0;">
+		`;
+
+		let eventosMap = new Map();
+		eventos.forEach(element => {
+			if(eventosMap.has(element.descricaoTipo)) {
+				eventosMap.get(element.descricaoTipo).push(element.descricao);
+				eventosMap.get(element.descricaoTipo).sort();
+			} else {
+				let evento = new Array();
+				eventosMap.set(element.descricaoTipo, evento);
+				eventosMap.get(element.descricaoTipo).push(element.descricao);
+			}
+		});
+
+		let eventosArray = new Array();
+		eventosMap.forEach((value, key) => {
+			eventosArray.push(key);
+		});
+
+		eventosArray.sort();
+
+		eventosArray.forEach(element => {
+			eventosMap.get(element).forEach(e => {
+				eventosConteudo += `
+					<li>
+						<p><strong class="h6">${element}:</strong> ${e}</p>
+					</li>
+				`;
+			});
+		});
+
+		eventosConteudo += `
+			</ul>
+		`;
 
 		let frentesCard = `
 			<!-- Frentes -->
@@ -292,6 +358,7 @@ class Dados {
 		`;
 		let frentesConteudo = `Aqui irão as frentes`;
 
+		/*
 		let mesasCard = `
 			<!-- Mesas -->
 			<div class="card">
@@ -309,6 +376,7 @@ class Dados {
 			</div>
 		`;
 		let mesasConteudo = `Aqui irão as mesas`;
+		*/
 
 		let orgaosCard = `
 			<!-- Órgãos -->
@@ -326,7 +394,43 @@ class Dados {
 				</div>
 			</div>
 		`;
-		let orgaosConteudo = `Aqui irão os órgãos`;
+
+		let orgaosConteudo = `
+			<ul style="list-style-type: none; padding: 0;">
+		`;
+
+		let orgaosMap = new Map();
+		orgaos.forEach(element => {
+			if(orgaosMap.has(element.nomeOrgao)) {
+				orgaosMap.get(element.nomeOrgao).push(element.titulo);
+				orgaosMap.get(element.nomeOrgao).sort();
+			} else {
+				let evento = new Array();
+				orgaosMap.set(element.nomeOrgao, evento);
+				orgaosMap.get(element.nomeOrgao).push(element.titulo);
+			}
+		});
+
+		let orgaosArray = new Array();
+		orgaosMap.forEach((value, key) => {
+			orgaosArray.push(key);
+		});
+
+		orgaosArray.sort();
+
+		orgaosArray.forEach(element => {
+			orgaosMap.get(element).forEach(e => {
+				orgaosConteudo += `
+					<li>
+						<p><strong class="h6">${element}:</strong> ${e}</p>
+					</li>
+				`;
+			});
+		});
+
+		orgaosConteudo += `
+			</ul>
+		`;
 
 		let noticiasCard = `
 			<!-- Notícias -->
@@ -356,7 +460,7 @@ class Dados {
 		$('#accordionExample').append(discursosCard);
 		$('#accordionExample').append(eventosCard);
 		$('#accordionExample').append(frentesCard);
-		$('#accordionExample').append(mesasCard);
+		//$('#accordionExample').append(mesasCard);
 		$('#accordionExample').append(orgaosCard);
 		$('#accordionExample').append(noticiasCard);
 
@@ -365,7 +469,7 @@ class Dados {
 		$('#collapseThree div').html(discursosConteudo);
 		$('#collapseFour div').html(eventosConteudo);
 		$('#collapseFive div').html(frentesConteudo);
-		$('#collapseSix div').html(mesasConteudo);
+		//$('#collapseSix div').html(mesasConteudo);
 		$('#collapseSeven div').html(orgaosConteudo);
 		$('#collapseEight div').html(noticiasConteudo);
 	}
