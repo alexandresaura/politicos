@@ -138,7 +138,7 @@ class Dados {
 		let dia = detalhes.dataNascimento.slice(8, 11);
 
 		$('#deputado').append(`
-			<div class="container mb-3">
+			<div class="container mb-3 mt-4">
 				<div class="row">
 					<div class="col-12 col-md-4 d-sm-flex justify-content-center">
 						<img src="${deputado.URLFoto}" class="img-fluid" alt="${deputado.nome}" style="height:100%; width:80%;">
