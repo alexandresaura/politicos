@@ -130,15 +130,22 @@ class Dados {
 
 		// Preenchimento do array de Deputado
 		let deputado = new Deputado(dataJSON.dados.id, dataJSON.dados.ultimoStatus.nome, dataJSON.dados.ultimoStatus.siglaPartido, dataJSON.dados.ultimoStatus.email, dataJSON.dados.ultimoStatus.siglaUf, dataJSON.dados.ultimoStatus.uriPartido, dataJSON.dados.ultimoStatus.urlFoto, dataJSON.dados.ultimoStatus.uri);
+
+		// Preenchimento das informações do deputado
 		let detalhes = deputado.obterDetalhes();
 		let despesas = deputado.obterDespesas();
-		console.log(detalhes);
+		let discursos = deputado.obterDiscursos();
+		let eventos = deputado.obterEventos();
+		let frentes = deputado.obterFrentes();
+		//let mesas = deputado.obterMesa();
+		let orgaos = deputado.obterOrgaos();
+
 		let ano = detalhes.dataNascimento.slice(0, 4); 
 		let mes = detalhes.dataNascimento.slice(5, 7); 
 		let dia = detalhes.dataNascimento.slice(8, 11);
 
-		$('#deputado').append(`
-			<div class="container mb-3 mt-4">
+		let apresentacao = `
+			<div class="container mb-3" style="margin-top: 7%;">
 				<div class="row">
 					<div class="col-12 col-md-4 d-sm-flex justify-content-center">
 						<img src="${deputado.URLFoto}" class="img-fluid" alt="${deputado.nome}" style="height:100%; width:80%;">
@@ -171,148 +178,196 @@ class Dados {
 					</div>
 				</div>
 			</div>
-			<div class="accordion" id="accordionExample" style="width: 100%">
-				<!-- Detalhes -->
-				<div class="card" style="width: 100%">
-					<div class="card-header" id="headingOne">
-						<h2 class="mb-0">
-						<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-							<h5 style="text-transform: uppercase;" class="text-secondary">Detalhes</h5>
-						</button>
-						</h2>
-					</div>
-					<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-						<div class="card-body">
-							<ul style="list-style-type: none; padding: 0;">
-								<li>
-									<p><strong class="h6">Nome eleitoral:</strong> ${detalhes.ultimoStatus.nomeEleitoral}</p>
-								</li>
-								<li>
-									<p><strong class="h6">CPF:</strong> ${detalhes.cpf}</p>
-								</li>
-								<li>
-									<p><strong class="h6">Escolaridade:</strong> ${detalhes.escolaridade}</p>
-								</li>
-								<li>
-									<p><strong class="h6">Sexo:</strong> ${detalhes.sexo == 'M'? 'Masculino' : 'Feminino'}</p>
-								</li>
-								<li>
-									<p><strong class="h6">Condição eleitoral:</strong> ${detalhes.ultimoStatus.condicaoEleitoral}</p>
-								</li>
-								<li>
-									<p><strong class="h6">Situação atual:</strong> ${detalhes.ultimoStatus.situacao}</p>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
+		`;
 
-				<!-- Despesas -->
-				<div class="card">
-					<div class="card-header" id="headingTwo">
-						<h2 class="mb-0">
-						<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-							<h5 style="text-transform: uppercase;" class="text-secondary">Despesas</h5>
-						</button>
-						</h2>
-					</div>
-					<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-						<div class="card-body">
-							<ul style="list-style-type: none; padding: 0;">
-								<li>
-									<p><strong class="h6">Nome eleitoral:</strong> ${detalhes.ultimoStatus.nomeEleitoral}</p>
-								</li>
-								<li>
-									<p><strong class="h6">CPF:</strong> ${detalhes.cpf}</p>
-								</li>
-								<li>
-									<p><strong class="h6">Escolaridade:</strong> ${detalhes.escolaridade}</p>
-								</li>
-								<li>
-									<p><strong class="h6">Sexo:</strong> ${detalhes.sexo == 'M'? 'Masculino' : 'Feminino'}</p>
-								</li>
-								<li>
-									<p><strong class="h6">Condição eleitoral:</strong> ${detalhes.ultimoStatus.condicaoEleitoral}</p>
-								</li>
-								<li>
-									<p><strong class="h6">Situação atual:</strong> ${detalhes.ultimoStatus.situacao}</p>
-								</li>
-							</ul>
-						</div>
-					</div>
+		let detalhesCard = `
+			<!-- Detalhes -->
+			<div class="card" style="width: 100%">
+				<div class="card-header" id="headingOne">
+					<h2 class="mb-0">
+					<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+						<h5 style="text-transform: uppercase;" class="text-secondary">Detalhes</h5>
+					</button>
+					</h2>
 				</div>
-
-				<!-- Discursos -->
-				<div class="card">
-					<div class="card-header" id="headingThree">
-						<h2 class="mb-0">
-						<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-							<h5 style="text-transform: uppercase;" class="text-secondary">Discursos</h5>
-						</button>
-						</h2>
-					</div>
-					<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-						<div class="card-body">
-							<ul style="list-style-type: none; padding: 0;">
-								<li>
-									<p><strong class="h6">Nome eleitoral:</strong> ${detalhes.ultimoStatus.nomeEleitoral}</p>
-								</li>
-								<li>
-									<p><strong class="h6">CPF:</strong> ${detalhes.cpf}</p>
-								</li>
-								<li>
-									<p><strong class="h6">Escolaridade:</strong> ${detalhes.escolaridade}</p>
-								</li>
-								<li>
-									<p><strong class="h6">Sexo:</strong> ${detalhes.sexo == 'M'? 'Masculino' : 'Feminino'}</p>
-								</li>
-								<li>
-									<p><strong class="h6">Condição eleitoral:</strong> ${detalhes.ultimoStatus.condicaoEleitoral}</p>
-								</li>
-								<li>
-									<p><strong class="h6">Situação atual:</strong> ${detalhes.ultimoStatus.situacao}</p>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-
-				<!-- Notícias -->
-				<div class="card">
-					<div class="card-header" id="headingFour">
-						<h2 class="mb-0">
-						<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-							<h5 style="text-transform: uppercase;" class="text-secondary">Notícias</h5>
-						</button>
-						</h2>
-					</div>
-					<div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
-						<div class="card-body">
-							<ul style="list-style-type: none; padding: 0;">
-								<li>
-									<p><strong class="h6">Nome eleitoral:</strong> ${detalhes.ultimoStatus.nomeEleitoral}</p>
-								</li>
-								<li>
-									<p><strong class="h6">CPF:</strong> ${detalhes.cpf}</p>
-								</li>
-								<li>
-									<p><strong class="h6">Escolaridade:</strong> ${detalhes.escolaridade}</p>
-								</li>
-								<li>
-									<p><strong class="h6">Sexo:</strong> ${detalhes.sexo == 'M'? 'Masculino' : 'Feminino'}</p>
-								</li>
-								<li>
-									<p><strong class="h6">Condição eleitoral:</strong> ${detalhes.ultimoStatus.condicaoEleitoral}</p>
-								</li>
-								<li>
-									<p><strong class="h6">Situação atual:</strong> ${detalhes.ultimoStatus.situacao}</p>
-								</li>
-							</ul>
-						</div>
+				<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+					<div class="card-body">
 					</div>
 				</div>
 			</div>
+		`;
+
+		let detalhesConteudo = `
+			<ul style="list-style-type: none; padding: 0;">
+				<li>
+					<p><strong class="h6">Nome eleitoral:</strong> ${detalhes.ultimoStatus.nomeEleitoral}</p>
+				</li>
+				<li>
+					<p><strong class="h6">CPF:</strong> ${detalhes.cpf}</p>
+				</li>
+				<li>
+					<p><strong class="h6">Escolaridade:</strong> ${detalhes.escolaridade}</p>
+				</li>
+				<li>
+					<p><strong class="h6">Sexo:</strong> ${detalhes.sexo == 'M'? 'Masculino' : 'Feminino'}</p>
+				</li>
+				<li>
+					<p><strong class="h6">Condição eleitoral:</strong> ${detalhes.ultimoStatus.condicaoEleitoral}</p>
+				</li>
+				<li>
+					<p><strong class="h6">Situação atual:</strong> ${detalhes.ultimoStatus.situacao}</p>
+				</li>
+			</ul>
+		`;
+
+		let despesasCard = `
+			<!-- Despesas -->
+			<div class="card">
+				<div class="card-header" id="headingTwo">
+					<h2 class="mb-0">
+						<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+							<h5 style="text-transform: uppercase;" class="text-secondary">Despesas</h5>
+						</button>
+					</h2>
+				</div>
+				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+					<div class="card-body">
+					</div>
+				</div>
+			</div>
+		`;
+		let despesasConteudo = `Aqui irão as despesas`;
+
+		let discursosCard = `
+			<!-- Discursos -->
+			<div class="card">
+				<div class="card-header" id="headingThree">
+					<h2 class="mb-0">
+						<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+							<h5 style="text-transform: uppercase;" class="text-secondary">Discursos</h5>
+						</button>
+					</h2>
+				</div>
+				<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+					<div class="card-body">
+					</div>
+				</div>
+			</div>
+		`;
+		let discursosConteudo = `Aqui irão os discursos`;
+
+		let eventosCard = `
+			<!-- Eventos -->
+			<div class="card">
+				<div class="card-header" id="headingFour">
+					<h2 class="mb-0">
+						<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+							<h5 style="text-transform: uppercase;" class="text-secondary">Eventos</h5>
+						</button>
+					</h2>
+				</div>
+				<div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+					<div class="card-body">
+					</div>
+				</div>
+			</div>
+		`;
+		let eventosConteudo = `Aqui irão os eventos`;
+
+		let frentesCard = `
+			<!-- Frentes -->
+			<div class="card">
+				<div class="card-header" id="headingFive">
+					<h2 class="mb-0">
+						<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+							<h5 style="text-transform: uppercase;" class="text-secondary">Frentes</h5>
+						</button>
+					</h2>
+				</div>
+				<div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
+					<div class="card-body">
+					</div>
+				</div>
+			</div>
+		`;
+		let frentesConteudo = `Aqui irão as frentes`;
+
+		let mesasCard = `
+			<!-- Mesas -->
+			<div class="card">
+				<div class="card-header" id="headingSix">
+					<h2 class="mb-0">
+						<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+							<h5 style="text-transform: uppercase;" class="text-secondary">Mesas</h5>
+						</button>
+					</h2>
+				</div>
+				<div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
+					<div class="card-body">
+					</div>
+				</div>
+			</div>
+		`;
+		let mesasConteudo = `Aqui irão as mesas`;
+
+		let orgaosCard = `
+			<!-- Órgãos -->
+			<div class="card">
+				<div class="card-header" id="headingSeven">
+					<h2 class="mb-0">
+						<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+							<h5 style="text-transform: uppercase;" class="text-secondary">Órgãos</h5>
+						</button>
+					</h2>
+				</div>
+				<div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
+					<div class="card-body">
+					</div>
+				</div>
+			</div>
+		`;
+		let orgaosConteudo = `Aqui irão os órgãos`;
+
+		let noticiasCard = `
+			<!-- Notícias -->
+			<div class="card">
+				<div class="card-header" id="headingEight">
+					<h2 class="mb-0">
+						<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+							<h5 style="text-transform: uppercase;" class="text-secondary">Notícias</h5>
+						</button>
+					</h2>
+				</div>
+				<div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordionExample">
+					<div class="card-body">
+					</div>
+				</div>
+			</div>
+		`;
+		let noticiasConteudo = `Aqui irão as notícias`;
+
+		$('#deputado').append(apresentacao);
+		$('#deputado').append(`
+			<div class="accordion" id="accordionExample" style="width: 100%">
+			</div>
 		`);
+		$('#accordionExample').append(detalhesCard);
+		$('#accordionExample').append(despesasCard);
+		$('#accordionExample').append(discursosCard);
+		$('#accordionExample').append(eventosCard);
+		$('#accordionExample').append(frentesCard);
+		$('#accordionExample').append(mesasCard);
+		$('#accordionExample').append(orgaosCard);
+		$('#accordionExample').append(noticiasCard);
+
+		$('#collapseOne div').html(detalhesConteudo);
+		$('#collapseTwo div').html(despesasConteudo);
+		$('#collapseThree div').html(discursosConteudo);
+		$('#collapseFour div').html(eventosConteudo);
+		$('#collapseFive div').html(frentesConteudo);
+		$('#collapseSix div').html(mesasConteudo);
+		$('#collapseSeven div').html(orgaosConteudo);
+		$('#collapseEight div').html(noticiasConteudo);
 	}
 }
 
