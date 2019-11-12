@@ -128,34 +128,189 @@ class Dados {
 			async: false
 		}).responseText);
 
-		console.log(dataJSON.dados);
-
 		// Preenchimento do array de Deputado
 		let deputado = new Deputado(dataJSON.dados.id, dataJSON.dados.ultimoStatus.nome, dataJSON.dados.ultimoStatus.siglaPartido, dataJSON.dados.ultimoStatus.email, dataJSON.dados.ultimoStatus.siglaUf, dataJSON.dados.ultimoStatus.uriPartido, dataJSON.dados.ultimoStatus.urlFoto, dataJSON.dados.ultimoStatus.uri);
 		let detalhes = deputado.obterDetalhes();
-		
+		let despesas = deputado.obterDespesas();
+		console.log(detalhes);
+		let ano = detalhes.dataNascimento.slice(0, 4); 
+		let mes = detalhes.dataNascimento.slice(5, 7); 
+		let dia = detalhes.dataNascimento.slice(8, 11);
+
 		$('#deputado').append(`
-			<div class="col-sm-12 col-md-6 col-lg-4">
-				<img src="${deputado.URLFoto}" class="img-fluid" alt="${deputado.nome}">
+			<div class="container mb-3">
+				<div class="row">
+					<div class="col-12 col-md-4 d-sm-flex justify-content-center">
+						<img src="${deputado.URLFoto}" class="img-fluid" alt="${deputado.nome}" style="height:100%; width:80%;">
+					</div>
+					<div class="col-12 col-md-8">
+						<h3 class="h1">${deputado.nome} <small class="text-muted"><a href="partido.html?partido=${deputado.partido}">${deputado.partido}</a></small></h3>
+						<hr>
+						<ul style="list-style-type: none; padding: 0;">
+							<li>
+								<p><strong class="h6">Nome civil:</strong> ${detalhes.nomeCivil}</p>
+							</li>
+							<li>
+								<p><strong class="h6">E-mail:</strong> ${detalhes.ultimoStatus.email}</p>
+							</li>
+							<li>
+								<p><strong class="h6">Telefone:</strong> ${detalhes.ultimoStatus.gabinete.telefone}</p>
+							</li>
+							<li>
+								<p><strong class="h6">Endereço:</strong> Gabinete ${detalhes.ultimoStatus.gabinete.andar} - Anexo ${detalhes.ultimoStatus.gabinete.predio} - Sala ${detalhes.ultimoStatus.gabinete.sala}</p>
+							</li>
+							<li>
+								<p><strong class="h6">Data de nascimento:</strong> ${dia}/${mes}/${ano}</p>
+							</li>
+							<li>
+								<p><strong class="h6">Naturalidade:</strong> ${detalhes.municipioNascimento} - ${detalhes.ufNascimento}</p>
+							</li>
+						</ul>
+						<hr>
+						<button type="button" class="btn btn-warning justify-content-end">Seguir deputado</button>
+					</div>
+				</div>
 			</div>
-			<div class="col-sm-12 col-md-6 col-lg-8">
-				<h2 class="display-1">${deputado.nome}</h2>
-				<hr>
-				<p>Partido: <a href="partido.html?partido=${deputado.partido}">${deputado.partido}</a></p>
-			</div>
-			<div class="col-sm-12 col-md-8">
-				<p>CPF: <a href="partido.html?partido=${deputado.partido}">${deputado.partido}</a></p>
-				<p>Data de Nascimento: ${deputado.partido}</p>
-				<p>Data de Nascimento: ${deputado.partido}</p>
-				<p>Data de Nascimento: ${deputado.partido}</p>
-				<p>Data de Nascimento: ${deputado.partido}</p>
-				<p>Data de Nascimento: ${deputado.partido}</p>
-				<p>Data de Nascimento: ${deputado.partido}</p>
-				<p>Data de Nascimento: ${deputado.partido}</p>
-				<p>Data de Nascimento: ${deputado.partido}</p>
-				<p>Data de Nascimento: ${deputado.partido}</p>
-				<p>Data de Nascimento: ${deputado.partido}</p>
-				<p>Data de Nascimento: ${deputado.partido}</p>
+			<div class="accordion" id="accordionExample" style="width: 100%">
+				<!-- Detalhes -->
+				<div class="card" style="width: 100%">
+					<div class="card-header" id="headingOne">
+						<h2 class="mb-0">
+						<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+							<h5 style="text-transform: uppercase;" class="text-secondary">Detalhes</h5>
+						</button>
+						</h2>
+					</div>
+					<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+						<div class="card-body">
+							<ul style="list-style-type: none; padding: 0;">
+								<li>
+									<p><strong class="h6">Nome eleitoral:</strong> ${detalhes.ultimoStatus.nomeEleitoral}</p>
+								</li>
+								<li>
+									<p><strong class="h6">CPF:</strong> ${detalhes.cpf}</p>
+								</li>
+								<li>
+									<p><strong class="h6">Escolaridade:</strong> ${detalhes.escolaridade}</p>
+								</li>
+								<li>
+									<p><strong class="h6">Sexo:</strong> ${detalhes.sexo == 'M'? 'Masculino' : 'Feminino'}</p>
+								</li>
+								<li>
+									<p><strong class="h6">Condição eleitoral:</strong> ${detalhes.ultimoStatus.condicaoEleitoral}</p>
+								</li>
+								<li>
+									<p><strong class="h6">Situação atual:</strong> ${detalhes.ultimoStatus.situacao}</p>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<!-- Despesas -->
+				<div class="card">
+					<div class="card-header" id="headingTwo">
+						<h2 class="mb-0">
+						<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+							<h5 style="text-transform: uppercase;" class="text-secondary">Despesas</h5>
+						</button>
+						</h2>
+					</div>
+					<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+						<div class="card-body">
+							<ul style="list-style-type: none; padding: 0;">
+								<li>
+									<p><strong class="h6">Nome eleitoral:</strong> ${detalhes.ultimoStatus.nomeEleitoral}</p>
+								</li>
+								<li>
+									<p><strong class="h6">CPF:</strong> ${detalhes.cpf}</p>
+								</li>
+								<li>
+									<p><strong class="h6">Escolaridade:</strong> ${detalhes.escolaridade}</p>
+								</li>
+								<li>
+									<p><strong class="h6">Sexo:</strong> ${detalhes.sexo == 'M'? 'Masculino' : 'Feminino'}</p>
+								</li>
+								<li>
+									<p><strong class="h6">Condição eleitoral:</strong> ${detalhes.ultimoStatus.condicaoEleitoral}</p>
+								</li>
+								<li>
+									<p><strong class="h6">Situação atual:</strong> ${detalhes.ultimoStatus.situacao}</p>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<!-- Discursos -->
+				<div class="card">
+					<div class="card-header" id="headingThree">
+						<h2 class="mb-0">
+						<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+							<h5 style="text-transform: uppercase;" class="text-secondary">Discursos</h5>
+						</button>
+						</h2>
+					</div>
+					<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+						<div class="card-body">
+							<ul style="list-style-type: none; padding: 0;">
+								<li>
+									<p><strong class="h6">Nome eleitoral:</strong> ${detalhes.ultimoStatus.nomeEleitoral}</p>
+								</li>
+								<li>
+									<p><strong class="h6">CPF:</strong> ${detalhes.cpf}</p>
+								</li>
+								<li>
+									<p><strong class="h6">Escolaridade:</strong> ${detalhes.escolaridade}</p>
+								</li>
+								<li>
+									<p><strong class="h6">Sexo:</strong> ${detalhes.sexo == 'M'? 'Masculino' : 'Feminino'}</p>
+								</li>
+								<li>
+									<p><strong class="h6">Condição eleitoral:</strong> ${detalhes.ultimoStatus.condicaoEleitoral}</p>
+								</li>
+								<li>
+									<p><strong class="h6">Situação atual:</strong> ${detalhes.ultimoStatus.situacao}</p>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<!-- Notícias -->
+				<div class="card">
+					<div class="card-header" id="headingFour">
+						<h2 class="mb-0">
+						<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+							<h5 style="text-transform: uppercase;" class="text-secondary">Notícias</h5>
+						</button>
+						</h2>
+					</div>
+					<div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+						<div class="card-body">
+							<ul style="list-style-type: none; padding: 0;">
+								<li>
+									<p><strong class="h6">Nome eleitoral:</strong> ${detalhes.ultimoStatus.nomeEleitoral}</p>
+								</li>
+								<li>
+									<p><strong class="h6">CPF:</strong> ${detalhes.cpf}</p>
+								</li>
+								<li>
+									<p><strong class="h6">Escolaridade:</strong> ${detalhes.escolaridade}</p>
+								</li>
+								<li>
+									<p><strong class="h6">Sexo:</strong> ${detalhes.sexo == 'M'? 'Masculino' : 'Feminino'}</p>
+								</li>
+								<li>
+									<p><strong class="h6">Condição eleitoral:</strong> ${detalhes.ultimoStatus.condicaoEleitoral}</p>
+								</li>
+								<li>
+									<p><strong class="h6">Situação atual:</strong> ${detalhes.ultimoStatus.situacao}</p>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
 			</div>
 		`);
 	}
