@@ -1,10 +1,4 @@
 $(document).ready(function() {
-	for(let i = 1; i <= 22; i++){
-		$('.pagination').append(`
-			<li class="page-item"><a class="page-link" onclick="new Dados().carregarDeputados(${i})" href="#">${i}</a></li>
-		`);
-	}
-
 	new Dados().carregarDeputados(1);
 });
 
@@ -29,19 +23,37 @@ class Dados {
 			deputados.push(deputado);
 		});
 
-		$('#linha').html("");
+		$('#listaDeputados').html(`
+			<div class="col-12 pt-5">
+				<h3 class="display-4 text-left">Deputados Federais</h3>
+			</div>
+			<div class="col-12 d-flex justify-content-center">
+				<nav aria-label="Page navigation example">
+					<ul class="pagination">
+				</nav>
+			</div>
+		`);
+		let i = 1;
 		for(let indice in deputados){
 			let deputado = deputados[indice];
-			$('#linha').append(`
-				<div class="col-md-2">
-					<div class="card mb-4">
-						<img src="${deputado.URLFoto}" class="card-img-top img-fluid" alt="${deputado.nome}">
-						<div class="card-body">
-							<h5 class="card-title"><a href="deputado.html?id=${deputado.id}">${deputado.nome}</a></h5>
-							<p class="card-text">Partido: <a href="partido.html?partido=${deputado.partido}">${deputado.partido}</a></p>
-						</div>
+			$('#listaDeputados').append(`
+				<div class="card mb-2 col-12 col-md-4 col-lg-2">
+					<img src="${deputado.URLFoto}" class="card-img-top img-fluid px-2" alt="${deputado.nome}">
+					<div class="card-body">
+						<h5 class="card-title"><a href="deputado.html?id=${deputado.id}" class="text-dark">${deputado.nome}</a></h5>
+					</div>
+					<div class="card-footer">
+						<small class="text-muted">Partido: <a href="partido.html?partido=${deputado.partido}" class="text-dark">${deputado.partido}</a></small>
 					</div>
 				</div>
+			`);
+		}
+
+		for(let i = 1; i <= 22; i++){
+			$('.pagination').append(`
+				<li class="page-item">
+					<a onclick="new Dados().carregarDeputados(${i})" class="page-link text-dark" id="page${i}-tab" data-toggle="tab" href="#page${i}" role="tab" aria-controls="page${i}" aria-selected="false">${i}</a>
+				</li>
 			`);
 		}
 

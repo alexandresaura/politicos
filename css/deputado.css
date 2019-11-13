@@ -2,12 +2,6 @@ body {
 	scroll-behavior: smooth;
 }
 
-header.masthead {
-	min-height: 100vh;
-	padding-bottom: 2%;
-	background-color: #0C5E3D;
-}
-
 .bg-success {
 	background-color: #2F7958 !important;
 }

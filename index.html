@@ -7,66 +7,105 @@
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
 
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-
 	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<title>Politicos</title>
+	<title>Políticos</title>
+
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet"  type='text/css'>
 </head>
 
 <body>
 	<header class="masthead">
-		<nav class="navbar navbar-expand-lg navbar-dark bg-success">
-			<a class="navbar-brand" href="#">Procure um politico</a>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-success border-bottom border-secondary fixed-top">
+			<a class="navbar-brand" href="#">Transparência</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav mr-auto">
+				<ul class="navbar-nav ml-auto mr-3">
 					<li class="nav-item active">
-						<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+						<a class="nav-link" href="#">Home <span class="sr-only">(atual)</span></a>
 					</li>
+
 					<li class="nav-item">
-						<a class="nav-link" href="#">Link</a>
+						<a class="nav-link" href="#deputados">Deputados</a>
 					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Dropdown
-						</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="#">Action</a>
-							<a class="dropdown-item" href="#">Another action</a>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="#">Something else here</a>
-						</div>
-					</li>
+
 					<li class="nav-item">
-						<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+						<a class="nav-link" href="#">Partidos</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" href="#">Eventos</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" href="#">Frentes</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" href="#">Legislaturas</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" href="#">Proposições</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" href="#">Órgãos</a>
 					</li>
 				</ul>
+
 				<form class="form-inline my-2 my-lg-0">
-					<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-					<button class="btn btn-outline-light my-2 my-sm-0" type="submit">
-						Search
+					<input class="form-control mr-sm-2" type="search" placeholder="Digite algo..." aria-label="Search" />
+					<button class="btn btn-outline-light my-2 my-sm-0" type="submit" id="buscar">
+						Buscar
 					</button>
 				</form>
 			</div>
 		</nav>
+
+		<div class="container pt-5" style="min-height: 88vh; margin-top: 3%;" id="apresentacao">
+			<div class="row">
+				<!-- Título -->
+				<div class="col-12">
+					<h1 class="display-4 text-white text-right">Acompanhe os deputados federais <i class="far fa-eye"></i>
+					</h1>
+				</div>
+
+				<!-- Apresentação -->				
+				<div class="col-12 text-justify text-dark shadow p-3 mb-4 bg-white rounded mt-3">
+					<h2>Conheça mais sobre o que ocorre na Câmara</h2>
+					<hr>
+					<p>Acesso à <strong>informação</strong> é crucial, tendo em vista da disponibilidade de informações na atualidade, este site trás a proposta de divulgar fatos relevantes sobre cada um dos deputados federais. Utilizando a <em>API de Dados Abertos</em> fornecida pelo próprio governo, é possível investigar e tirar conclusões sobre o que ocorre na Câmara dos Deputados Federais.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+				</div>
+
+				<!-- Saiba mais -->
+				<div class="col-12 text-center">
+					<button class="btn btn-outline-light my-2 my-sm-0" id="saiba-mais">
+						<a href="#deputados" class="text-white">Saiba mais</a>
+					</button>
+				</div>
+			</div>
+		</div>
+		
 	</header>
 
 	<main>
-		<section>
-			<div class="container">
-				<div class="row" id="linha">
-
+		<section id="deputados" class="pt-3">
+			<div class="container-fluid">
+				<div class="row px-3" id="listaDeputados">
 				</div>
 			</div>
 		</section>
 	</main>
 
-	<footer></footer>
+	<footer class="text-center py-2 bg-success text-white">
+		<span>Created by Lorem and Ipsum</span>
+	</footer>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous">
 	</script>
