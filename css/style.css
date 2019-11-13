@@ -2,14 +2,12 @@ body {
 	scroll-behavior: smooth;
 }
 
-header.masthead {
-	min-height: 100vh;
-	padding-bottom: 2%;
-	background-color: #0C5E3D;
-}
-
 .bg-success {
 	background-color: #2F7958 !important;
+}
+
+#deputados {
+	background-color: rgb(230, 230, 230);
 }
 
 #saiba-mais:hover a {
@@ -19,4 +17,18 @@ header.masthead {
 
 #deputados {
 	background-color: rgb(230, 230, 230);
+}
+
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff !important;
+    background-color: #2F7958;
+    border-color: #2F7958;
+}
+
+.page-item.disabled .page-link {
+    pointer-events: none;
+    cursor: auto;
+    background-color: #b5babe  !important;
+    border-color: #dee2e6;
 }

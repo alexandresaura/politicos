@@ -5,14 +5,16 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
+	<title>Políticos</title>
+
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
 
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<title>Políticos</title>
-
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet"
 		type='text/css'>
+	
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css">
 </head>
 
 <body>
@@ -100,9 +102,11 @@
 
 				<!-- Saiba mais -->
 				<div class="col-12 text-center">
-					<button class="btn btn-outline-light my-2 my-sm-0" id="saiba-mais">
-						<a href="#deputados" class="text-white">Saiba mais</a>
-					</button>
+					<a href="#deputados" class="text-white">
+						<button class="btn btn-outline-light my-2 my-sm-0" id="saiba-mais">
+							Saiba mais
+						</button>
+					</a>
 				</div>
 			</div>
 		</div>
@@ -121,6 +125,11 @@
 					</nav>
 				</div>
 				<div class="row px-3" id="listaDeputados"></div>
+				<div class="col-12 d-flex justify-content-center">
+					<nav aria-label="Page navigation example">
+						<ul class="pagination">
+					</nav>
+				</div>
 			</div>
 		</section>
 	</main>
