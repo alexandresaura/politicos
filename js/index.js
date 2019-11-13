@@ -12,7 +12,7 @@ function carregarDeputados(page) {
     let deputados = Array();
 
     // URL da requisição
-    let url = `https://dadosabertos.camara.leg.br/api/v2/deputados?pagina=${page}&itens=${quantidadeDeputados}&ordem=ASC&ordenarPor=nome`;
+    let url = `https://dadosabertos.camara.leg.br/api/v2/deputados?pagina=${page}&itens=${quantidadeDeputados}&idLegislatura=56&ordem=ASC&ordenarPor=nome`;
     
     // Requisição dos dados dos deputados federais
     let dataJSON = $.parseJSON(
@@ -100,7 +100,7 @@ function buscarDeputado(nome) {
     let deputados = Array();
 
     // URL da requisição
-    let url = `https://dadosabertos.camara.leg.br/api/v2/deputados?nome=${nome}&ordem=ASC&ordenarPor=nome`;
+    let url = `https://dadosabertos.camara.leg.br/api/v2/deputados?nome=${nome}&idLegislatura=56&ordem=ASC&ordenarPor=nome`;
     
     // Requisição dos dados dos deputados federais
     let dataJSON = $.parseJSON(
@@ -113,10 +113,8 @@ function buscarDeputado(nome) {
 
     // Preenchimento do array de Deputado
     dataJSON.dados.forEach(function(dados){
-        if(dados.idLegislatura == 56) {
-            let deputado = new DeputadoDTO(dados.id, dados.nome, dados.siglaPartido, dados.email, dados.siglaUf, dados.uriPartido, dados.urlFoto, dados.uri);
-            deputados.push(deputado);
-        }
+        let deputado = new DeputadoDTO(dados.id, dados.nome, dados.siglaPartido, dados.email, dados.siglaUf, dados.uriPartido, dados.urlFoto, dados.uri);
+        deputados.push(deputado);
     });
 
     return deputados;
