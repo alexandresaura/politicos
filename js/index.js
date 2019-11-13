@@ -88,7 +88,7 @@ function imprimeDeputados(page) {
                     <h5 class="card-title"><a href="deputado.html?id=${deputado.id}" class="text-dark">${deputado.nome}</a></h5>
                 </div>
                 <div class="card-footer">
-                    <small class="text-muted">Partido: <a href="partido.html?partido=${deputado.partido}" class="text-dark">${deputado.partido}</a></small>
+                    <small class="text-muted">Partido: <a href="partido.html?sigla=${deputado.partido}" class="text-dark">${deputado.partido}</a></small>
                 </div>
             </div>
         `);

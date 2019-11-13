@@ -2,6 +2,7 @@ $(document).ready(function() {
 	let searchParams = new URLSearchParams(window.location.search);
 	let id = searchParams.get('id');
 	let deputado = carregarDeputado(id);
+	$('title').html(`Deputado ${deputado.nome}`);
 	imprimeDeputado(deputado);
 });
 
@@ -21,7 +22,6 @@ function carregarDeputado(id){
 }
 
 function imprimeDeputado(deputado){
-
 	imprimeApresentacao(deputado);
 
 	$('#deputado').append(`
@@ -36,7 +36,6 @@ function imprimeDeputado(deputado){
 	imprimeFrentes(deputado);
 	imprimeOrgaos(deputado);
 	imprimeNoticias(deputado);
-
 }
 
 function imprimeApresentacao(deputado){
@@ -52,7 +51,7 @@ function imprimeApresentacao(deputado){
 					<img src="${deputado.URLFoto}" class="img-fluid" alt="${deputado.nome}" style="height:100%; width:80%;">
 				</div>
 				<div class="col-12 col-md-8">
-					<h3 class="h1">${deputado.nome} <small class="text-muted"><a href="partido.html?partido=${deputado.partido}">${deputado.partido}</a></small></h3>
+					<h3 class="h1">${deputado.nome} <small class="text-muted"><a href="partido.html?sigla=${deputado.partido}">${deputado.partido}</a></small></h3>
 					<hr>
 					<ul style="list-style-type: none; padding: 0;">
 						<li>

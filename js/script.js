@@ -46,30 +46,5 @@ class Dados {
 		});
 
 		return frentes;
-	}
-
-	carregarPartidos(){
-		// Array para armazenar os objetos do tipo Partido
-		let partidos = Array();
-
-		// URL da requisição
-		let url = 'https://dadosabertos.camara.leg.br/api/v2/partidos/';
-		
-		// Requisição dos dados dos partidos federais
-		let dataJSON = $.parseJSON($.ajax({
-			url: url,
-			dataType: "json",
-			async: false
-		}).responseText);
-
-		// Preenchimento do array de Partido
-		dataJSON.dados.forEach(function(dados){
-			let partido = new Partido(dados.id, dados.sigla, dados.nome, dados.uri);
-			partidos[dados.sigla] = partido;
-		});
-
-		return partidos;
-	}
-
-	
+	}	
 }
