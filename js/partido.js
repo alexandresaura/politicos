@@ -2,7 +2,7 @@ $(document).ready(function() {
 	let searchParams = new URLSearchParams(window.location.search);
 	let sigla = searchParams.get('sigla');
 	let partido = carregarPartido(sigla);
-	$('title').html(`Partido ${partido.sigla}`);
+	$('title').html(`Partido: ${partido.sigla}`);
 
 	imprimePartido(partido);
 });
@@ -29,7 +29,7 @@ function carregarPartido(sigla){
 		dataType: "json",
 		async: false
 	}).responseText);
-
+	console.log(dataJSON.dados);
 	// Instância da classe Partido
 	let partido = new PartidoDTO(dataJSON.dados.id, dataJSON.dados.sigla, dataJSON.dados.nome, dataJSON.dados.uri, dataJSON.dados.urlLogo);
 
@@ -64,7 +64,7 @@ function imprimeApresentacao(partido){
 							<p><strong class="h6">Nome:</strong> ${detalhes.nome}</p>
 						</li>
 						<li>
-							<p><strong class="h6">Líder:</strong> <a href="index.html" class="text-secondary">${detalhes.status.lider.nome}</a></p>
+							<p><strong class="h6">Líder:</strong> <a href="deputado.html?id=${detalhes.status.lider.uri.replace('https://dadosabertos.camara.leg.br/api/v2/deputados/', '')}" class="text-secondary">${detalhes.status.lider.nome}</a></p>
 						</li>
 						<li>
 							<p><strong class="h6">Situação:</strong> ${detalhes.status.situacao}</p>
