@@ -5,12 +5,14 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
 
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<title>Políticos</title>
 
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet"  type='text/css'>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet"
+		type='text/css'>
 </head>
 
 <body>
@@ -58,7 +60,8 @@
 				</ul>
 
 				<form class="form-inline my-2 my-lg-0">
-					<input class="form-control mr-sm-2" type="search" placeholder="Digite algo..." aria-label="Search" />
+					<input class="form-control mr-sm-2" type="search" placeholder="Digite algo..."
+						aria-label="Search" />
 					<button class="btn btn-outline-light my-2 my-sm-0" type="submit" id="buscar">
 						Buscar
 					</button>
@@ -70,17 +73,29 @@
 			<div class="row">
 				<!-- Título -->
 				<div class="col-12">
-					<h1 class="display-4 text-white text-right">Acompanhe os deputados federais <i class="far fa-eye"></i>
+					<h1 class="display-4 text-white text-center">Acompanhe os deputados federais <i
+							class="far fa-eye"></i>
 					</h1>
 				</div>
 
-				<!-- Apresentação -->				
+				<!-- Apresentação -->
 				<div class="col-12 text-justify text-dark shadow p-3 mb-4 bg-white rounded mt-3">
 					<h2>Conheça mais sobre o que ocorre na Câmara</h2>
 					<hr>
-					<p>Acesso à <strong>informação</strong> é crucial, tendo em vista da disponibilidade de informações na atualidade, este site trás a proposta de divulgar fatos relevantes sobre cada um dos deputados federais. Utilizando a <em>API de Dados Abertos</em> fornecida pelo próprio governo, é possível investigar e tirar conclusões sobre o que ocorre na Câmara dos Deputados Federais.</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					<p>Acesso à <strong>informação</strong> é crucial, tendo em vista da disponibilidade de informações
+						na atualidade, este site trás a proposta de divulgar fatos relevantes sobre cada um dos
+						deputados federais. Utilizando a <em>API de Dados Abertos</em> fornecida pelo próprio governo, é
+						possível investigar e tirar conclusões sobre o que ocorre na Câmara dos Deputados Federais.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+						laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+						voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+						non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+						laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+						voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+						non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 				</div>
 
 				<!-- Saiba mais -->
@@ -91,14 +106,21 @@
 				</div>
 			</div>
 		</div>
-		
+
 	</header>
 
 	<main>
 		<section id="deputados" class="pt-3">
 			<div class="container-fluid">
-				<div class="row px-3" id="listaDeputados">
+				<div class="col-12 pt-5">
+					<h3 class="display-4 text-left">Deputados Federais</h3>
 				</div>
+				<div class="col-12 d-flex justify-content-center">
+					<nav aria-label="Page navigation example">
+						<ul class="pagination">
+					</nav>
+				</div>
+				<div class="row px-3" id="listaDeputados"></div>
 			</div>
 		</section>
 	</main>
@@ -107,10 +129,9 @@
 		<span>Created by Lorem and Ipsum</span>
 	</footer>
 
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous">
 	</script>
-
-	<script type="text/javascript" src="js/script.js"></script>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
 		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
@@ -120,6 +141,7 @@
 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
 	</script>
 
+	<script type="text/javascript" src="js/dto/DeputadoDTO.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
 </body>
-
 </html>
