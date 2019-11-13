@@ -2,6 +2,12 @@ body {
 	scroll-behavior: smooth;
 }
 
+.btn-primary {
+    color: #fff;
+	background-color: #2F7958 !important;
+    border-color: #2F7958;
+}
+
 .bg-success {
 	background-color: #2F7958 !important;
 }

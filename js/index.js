@@ -74,7 +74,7 @@ function imprimePaginas(page) {
 }
 
 function imprimeDeputados(page) {
-    let deputados = new carregarDeputados(page);
+    let deputados = carregarDeputados(page);
 
     imprimePaginas(page);
 
@@ -82,7 +82,54 @@ function imprimeDeputados(page) {
     for(let indice in deputados){
         let deputado = deputados[indice];
         $('#listaDeputados').append(`
-            <div class="card mb-2 col-12 col-md-4 col-lg-2">
+            <div class="card col-12 col-md-4 col-lg-2">
+                <img src="${deputado.URLFoto}" class="card-img-top img-fluid px-2" alt="${deputado.nome}">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="deputado.html?id=${deputado.id}" class="text-dark">${deputado.nome}</a></h5>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Partido: <a href="partido.html?partido=${deputado.partido}" class="text-dark">${deputado.partido}</a></small>
+                </div>
+            </div>
+        `);
+    }
+}
+
+function buscarDeputado(nome) {
+    // Array para armazenar os objetos do tipo Deputado
+    let deputados = Array();
+
+    // URL da requisição
+    let url = `https://dadosabertos.camara.leg.br/api/v2/deputados?nome=${nome}&ordem=ASC&ordenarPor=nome`;
+    
+    // Requisição dos dados dos deputados federais
+    let dataJSON = $.parseJSON(
+        $.ajax({
+            url: url,
+            dataType: "json",
+            async: false
+        }).responseText
+    );
+
+    // Preenchimento do array de Deputado
+    dataJSON.dados.forEach(function(dados){
+        if(dados.idLegislatura == 56) {
+            let deputado = new DeputadoDTO(dados.id, dados.nome, dados.siglaPartido, dados.email, dados.siglaUf, dados.uriPartido, dados.urlFoto, dados.uri);
+            deputados.push(deputado);
+        }
+    });
+
+    return deputados;
+}
+
+function imprimirDeputado(nome) {
+    let deputados = buscarDeputado(nome);
+
+    $('#listaDeputados').html("");
+    for(let indice in deputados){
+        let deputado = deputados[indice];
+        $('#listaDeputados').append(`
+            <div class="card col-12 col-md-4 col-lg-2">
                 <img src="${deputado.URLFoto}" class="card-img-top img-fluid px-2" alt="${deputado.nome}">
                 <div class="card-body">
                     <h5 class="card-title"><a href="deputado.html?id=${deputado.id}" class="text-dark">${deputado.nome}</a></h5>
