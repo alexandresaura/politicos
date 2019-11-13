@@ -104,7 +104,7 @@ function imprimeMembros(partido){
 		</div>
 	`;
 
-	let url = `https://dadosabertos.camara.leg.br/api/v2/deputados?siglaPartido=${partido.sigla}&ordem=ASC&ordenarPor=nome`;
+	let url = `https://dadosabertos.camara.leg.br/api/v2/deputados?idLegislatura=56&siglaPartido=${partido.sigla}&ordem=ASC&ordenarPor=nome`;
 
 	// Array para armazenar os objetos do tipo Deputado
     let deputados = Array();
