@@ -29,11 +29,35 @@ function carregarPartido(sigla){
 		dataType: "json",
 		async: false
 	}).responseText);
-	console.log(dataJSON.dados);
+
 	// Instância da classe Partido
 	let partido = new PartidoDTO(dataJSON.dados.id, dataJSON.dados.sigla, dataJSON.dados.nome, dataJSON.dados.uri, dataJSON.dados.urlLogo);
 
 	return partido;
+}
+
+function carregarDeputados(partido) {
+	let url = `https://dadosabertos.camara.leg.br/api/v2/deputados?idLegislatura=56&siglaPartido=${partido.sigla}&ordem=ASC&ordenarPor=nome`;
+
+	// Array para armazenar os objetos do tipo Deputado
+    let deputados = Array();
+    
+    // Requisição dos dados dos deputados federais
+    let dataJSON = $.parseJSON(
+        $.ajax({
+            url: url,
+            dataType: "json",
+            async: false
+        }).responseText
+    );
+
+    // Preenchimento do array de Deputado
+    dataJSON.dados.forEach(function(dados){
+        let deputado = new DeputadoDTO(dados.id, dados.nome, dados.siglaPartido, dados.email, dados.siglaUf, dados.uriPartido, dados.urlFoto, dados.uri);
+        deputados.push(deputado);
+	});
+	
+	return deputados;
 }
 
 function imprimePartido(partido){
@@ -85,7 +109,7 @@ function imprimeApresentacao(partido){
 }
 
 function imprimeMembros(partido){
-	let detalhes = partido.obterDetalhes();
+	let deputados = carregarDeputados(partido);
 
 	let membrosCard = `
 		<!-- Membros -->
@@ -103,26 +127,6 @@ function imprimeMembros(partido){
 			</div>
 		</div>
 	`;
-
-	let url = `https://dadosabertos.camara.leg.br/api/v2/deputados?idLegislatura=56&siglaPartido=${partido.sigla}&ordem=ASC&ordenarPor=nome`;
-
-	// Array para armazenar os objetos do tipo Deputado
-    let deputados = Array();
-    
-    // Requisição dos dados dos deputados federais
-    let dataJSON = $.parseJSON(
-        $.ajax({
-            url: url,
-            dataType: "json",
-            async: false
-        }).responseText
-    );
-
-    // Preenchimento do array de Deputado
-    dataJSON.dados.forEach(function(dados){
-        let deputado = new DeputadoDTO(dados.id, dados.nome, dados.siglaPartido, dados.email, dados.siglaUf, dados.uriPartido, dados.urlFoto, dados.uri);
-        deputados.push(deputado);
-    });
 
 	let membrosConteudo = `
 		<ul style="list-style-type: none; padding: 0;">
