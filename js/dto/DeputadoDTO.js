@@ -58,7 +58,7 @@ class DeputadoDTO {
 	// Informações sobre despesas com exercício parlamentar do deputado
 	obterDespesas(){
 		let dataJSON = $.parseJSON($.ajax({
-			url: `${this.URI}/despesas`,
+			url: `${this.URI}/despesas?idLegislatura=56`,
 			dataType: "json",
 			async: false
 		}).responseText);
@@ -69,7 +69,7 @@ class DeputadoDTO {
 	// Informações sobre discursos feitos pelo deputado em eventos diversos
 	obterDiscursos(){
 		let dataJSON = $.parseJSON($.ajax({
-			url: `${this.URI}/discursos`,
+			url: `${this.URI}/discursos?idLegislatura=56`,
 			dataType: "json",
 			async: false
 		}).responseText);

@@ -2,7 +2,7 @@ $(document).ready(function() {
 	let searchParams = new URLSearchParams(window.location.search);
 	let sigla = searchParams.get('sigla');
 	let partido = carregarPartido(sigla);
-	$('title').html(`Partido ${partido.sigla}`);
+	$('title').html(`Partido: ${partido.sigla}`);
 
 	imprimePartido(partido);
 });
@@ -36,6 +36,30 @@ function carregarPartido(sigla){
 	return partido;
 }
 
+function carregarDeputados(partido) {
+	let url = `https://dadosabertos.camara.leg.br/api/v2/deputados?idLegislatura=56&siglaPartido=${partido.sigla}&ordem=ASC&ordenarPor=nome`;
+
+	// Array para armazenar os objetos do tipo Deputado
+    let deputados = Array();
+    
+    // Requisição dos dados dos deputados federais
+    let dataJSON = $.parseJSON(
+        $.ajax({
+            url: url,
+            dataType: "json",
+            async: false
+        }).responseText
+    );
+
+    // Preenchimento do array de Deputado
+    dataJSON.dados.forEach(function(dados){
+        let deputado = new DeputadoDTO(dados.id, dados.nome, dados.siglaPartido, dados.email, dados.siglaUf, dados.uriPartido, dados.urlFoto, dados.uri);
+        deputados.push(deputado);
+	});
+	
+	return deputados;
+}
+
 function imprimePartido(partido){
 	imprimeApresentacao(partido);
 
@@ -64,7 +88,7 @@ function imprimeApresentacao(partido){
 							<p><strong class="h6">Nome:</strong> ${detalhes.nome}</p>
 						</li>
 						<li>
-							<p><strong class="h6">Líder:</strong> <a href="index.html" class="text-secondary">${detalhes.status.lider.nome}</a></p>
+							<p><strong class="h6">Líder:</strong> <a href="deputado.html?id=${detalhes.status.lider.uri.replace('https://dadosabertos.camara.leg.br/api/v2/deputados/', '')}" class="text-secondary">${detalhes.status.lider.nome}</a></p>
 						</li>
 						<li>
 							<p><strong class="h6">Situação:</strong> ${detalhes.status.situacao}</p>
@@ -85,7 +109,7 @@ function imprimeApresentacao(partido){
 }
 
 function imprimeMembros(partido){
-	let detalhes = partido.obterDetalhes();
+	let deputados = carregarDeputados(partido);
 
 	let membrosCard = `
 		<!-- Membros -->
@@ -103,26 +127,6 @@ function imprimeMembros(partido){
 			</div>
 		</div>
 	`;
-
-	let url = `https://dadosabertos.camara.leg.br/api/v2/deputados?siglaPartido=${partido.sigla}&ordem=ASC&ordenarPor=nome`;
-
-	// Array para armazenar os objetos do tipo Deputado
-    let deputados = Array();
-    
-    // Requisição dos dados dos deputados federais
-    let dataJSON = $.parseJSON(
-        $.ajax({
-            url: url,
-            dataType: "json",
-            async: false
-        }).responseText
-    );
-
-    // Preenchimento do array de Deputado
-    dataJSON.dados.forEach(function(dados){
-        let deputado = new DeputadoDTO(dados.id, dados.nome, dados.siglaPartido, dados.email, dados.siglaUf, dados.uriPartido, dados.urlFoto, dados.uri);
-        deputados.push(deputado);
-    });
 
 	let membrosConteudo = `
 		<ul style="list-style-type: none; padding: 0;">

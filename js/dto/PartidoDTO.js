@@ -32,7 +32,7 @@ class PartidoDTO {
 	// Informações detalhadas sobre o partido
 	obterDetalhes(){
 		let dataJSON = $.parseJSON($.ajax({
-			url: this.URI,
+			url: `${this.URI}`,
 			dataType: "json",
 			async: false
 		}).responseText);

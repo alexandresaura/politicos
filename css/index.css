@@ -3,3 +3,7 @@ header.masthead {
 	padding-bottom: 2%;
 	background-color: #0C5E3D;
 }
+
+#apresentacao {
+	min-height: 88vh; margin-top: 3%;
+}

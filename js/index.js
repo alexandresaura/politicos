@@ -5,6 +5,20 @@ var paginaAtual = 1;
 
 $(document).ready(function() {
     imprimeDeputados(1);
+
+    $("#deputadoForm").submit(function(e) {
+        e.preventDefault();
+    });
+
+    $('#buscarDeputado').click(function() {
+        imprimirDeputado($('#deputadoInput').val(), $('#partidoSelect').val());
+    });
+
+    $('#deputadoInput').keyup(function(e) {
+        if(e.which == 13) {
+            $('#buscarDeputado').click();
+        }
+    });
 });
 
 function carregarDeputados(page) {
@@ -52,25 +66,39 @@ function imprimePaginas(page) {
     $('.pagination').html("");
     $('.pagination').append(`
         <li class="page-item ${paginaAtual - 1 < 1 ? 'disabled' : ''}">
-            <a onclick="imprimeDeputados(${paginaAtual - 1})" class="page-link text-dark" id="page-previous-tab" data-toggle="tab" href="#page${paginaAtual - 1}" role="tab" aria-label="Previous" aria-selected="false" ${paginaAtual - 1 < 1 ? 'aria-disabled="true"' : ''}>
+            <a class="page-link text-dark page-previous-tab" data-toggle="tab" href="#deputados" role="tab" aria-label="Previous" aria-selected="false" ${paginaAtual - 1 < 1 ? 'aria-disabled="true"' : ''}>
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
     `);
+
+    $('.page-previous-tab').click(function() {
+        imprimeDeputados(paginaAtual - 1);
+    });
+
     for(let i = pageInicial; i <= pageFinal; i++){
         $('.pagination').append(`
             <li class="page-item ${i == page ? 'active' : ''}">
-                <a onclick="imprimeDeputados(${i})" class="page-link text-dark" id="page${i}-tab" data-toggle="tab" href="#page${i}" role="tab" aria-controls="page${i}" aria-selected="false">${i}</a>
+                <a class="page-link text-dark page${i}-tab" data-toggle="tab" href="#deputados" role="tab" aria-controls="page${i}" aria-selected="false">${i}</a>
             </li>
         `);
+
+        $(`.page${i}-tab`).click(function() {
+            imprimeDeputados(i);
+        }); 
     }
+
     $('.pagination').append(`
         <li class="page-item ${paginaAtual + 1 > quantidadePagina ? 'disabled' : ''}">
-            <a onclick="imprimeDeputados(${paginaAtual + 1})" class="page-link text-dark" id="page-next-tab" data-toggle="tab" href="#page${paginaAtual + 1}" role="tab" aria-label="Next" aria-selected="false" ${paginaAtual + 1 > quantidadePagina ? 'aria-disabled="true"' : ''}>
+            <a class="page-link text-dark page-next-tab" data-toggle="tab" href="#deputados" role="tab" aria-label="Next" aria-selected="false" ${paginaAtual + 1 > quantidadePagina ? 'aria-disabled="true"' : ''}>
                 <span aria-hidden="true">&raquo;</span>
             </a>
         </li>
     `);
+
+    $('.page-next-tab').click(function() {
+        imprimeDeputados(paginaAtual + 1);
+    });    
 }
 
 function imprimeDeputados(page) {
@@ -85,7 +113,7 @@ function imprimeDeputados(page) {
             <div class="card col-12 col-md-4 col-lg-2">
                 <img src="${deputado.URLFoto}" class="card-img-top img-fluid px-2" alt="${deputado.nome}">
                 <div class="card-body">
-                    <h5 class="card-title"><a href="deputado.html?id=${deputado.id}" class="text-dark">${deputado.nome}</a></h5>
+                    <p class="h5 card-title"><a href="deputado.html?id=${deputado.id}" class="text-dark">${deputado.nome}</a></p>
                 </div>
                 <div class="card-footer">
                     <small class="text-muted">Partido: <a href="partido.html?sigla=${deputado.partido}" class="text-dark">${deputado.partido}</a></small>
@@ -95,12 +123,12 @@ function imprimeDeputados(page) {
     }
 }
 
-function buscarDeputado(nome) {
+function buscarDeputado(nome, partido) {
     // Array para armazenar os objetos do tipo Deputado
     let deputados = Array();
 
     // URL da requisição
-    let url = `https://dadosabertos.camara.leg.br/api/v2/deputados?nome=${nome}&idLegislatura=56&ordem=ASC&ordenarPor=nome`;
+    let url = `https://dadosabertos.camara.leg.br/api/v2/deputados?nome=${nome}&siglaPartido=${partido}&idLegislatura=56&ordem=ASC&ordenarPor=nome`;
     
     // Requisição dos dados dos deputados federais
     let dataJSON = $.parseJSON(
@@ -120,8 +148,8 @@ function buscarDeputado(nome) {
     return deputados;
 }
 
-function imprimirDeputado(nome) {
-    let deputados = buscarDeputado(nome);
+function imprimirDeputado(nome, partido) {
+    let deputados = buscarDeputado(nome, partido);
 
     $('#listaDeputados').html("");
     for(let indice in deputados){
@@ -133,7 +161,7 @@ function imprimirDeputado(nome) {
                     <h5 class="card-title"><a href="deputado.html?id=${deputado.id}" class="text-dark">${deputado.nome}</a></h5>
                 </div>
                 <div class="card-footer">
-                    <small class="text-muted">Partido: <a href="partido.html?partido=${deputado.partido}" class="text-dark">${deputado.partido}</a></small>
+                    <small class="text-muted">Partido: <a href="partido.html?sigla=${deputado.partido}" class="text-dark">${deputado.partido}</a></small>
                 </div>
             </div>
         `);

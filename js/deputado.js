@@ -2,7 +2,7 @@ $(document).ready(function() {
 	let searchParams = new URLSearchParams(window.location.search);
 	let id = searchParams.get('id');
 	let deputado = carregarDeputado(id);
-	$('title').html(`Deputado ${deputado.nome}`);
+	$('title').html(`Deputado: ${deputado.nome}`);
 	imprimeDeputado(deputado);
 });
 
@@ -53,26 +53,55 @@ function imprimeApresentacao(deputado){
 				<div class="col-12 col-md-8">
 					<h3 class="h1">${deputado.nome} <small class="text-muted"><a href="partido.html?sigla=${deputado.partido}">${deputado.partido}</a></small></h3>
 					<hr>
-					<ul style="list-style-type: none; padding: 0;">
-						<li>
-							<p><strong class="h6">Nome civil:</strong> ${detalhes.nomeCivil}</p>
-						</li>
-						<li>
-							<p><strong class="h6">E-mail:</strong> ${detalhes.ultimoStatus.email}</p>
-						</li>
-						<li>
-							<p><strong class="h6">Telefone:</strong> ${detalhes.ultimoStatus.gabinete.telefone}</p>
-						</li>
-						<li>
-							<p><strong class="h6">Endereço:</strong> Gabinete ${detalhes.ultimoStatus.gabinete.andar} - Anexo ${detalhes.ultimoStatus.gabinete.predio} - Sala ${detalhes.ultimoStatus.gabinete.sala}</p>
-						</li>
-						<li>
-							<p><strong class="h6">Data de nascimento:</strong> ${dia}/${mes}/${ano}</p>
-						</li>
-						<li>
-							<p><strong class="h6">Naturalidade:</strong> ${detalhes.municipioNascimento} - ${detalhes.ufNascimento}</p>
-						</li>
-					</ul>
+					<ul style="list-style-type: none; padding: 0;">`;
+						if(detalhes.nomeCivil) {
+							apresentacao += `
+								<li>
+									<p><strong class="h6">Nome civil:</strong> ${detalhes.nomeCivil}</p>
+								</li>
+							`;
+						}
+						if(detalhes.ultimoStatus.email) {
+							apresentacao += `
+								<li>
+									<p><strong class="h6">E-mail:</strong> ${detalhes.ultimoStatus.email}</p>
+								</li>
+							`;
+						}
+						if(detalhes.ultimoStatus.gabinete.telefone) {
+							apresentacao += `
+								<li>
+									<p><strong class="h6">Telefone:</strong> ${detalhes.ultimoStatus.gabinete.telefone}</p>
+								</li>
+							`;
+						}
+						if(detalhes.ultimoStatus.gabinete.andar || detalhes.ultimoStatus.gabinete.predio || detalhes.ultimoStatus.gabinete.sala) {
+							apresentacao += `
+								<li>
+									<p><strong class="h6">Endereço:</strong>
+									${detalhes.ultimoStatus.gabinete.predio ? `Anexo ${detalhes.ultimoStatus.gabinete.predio}` : ''}
+									${detalhes.ultimoStatus.gabinete.predio && (detalhes.ultimoStatus.gabinete.andar || detalhes.ultimoStatus.gabinete.sala) ? ' - ' : ''}
+									${detalhes.ultimoStatus.gabinete.andar ? `Andar ${detalhes.ultimoStatus.gabinete.andar}` : ''}
+									${detalhes.ultimoStatus.gabinete.andar && detalhes.ultimoStatus.gabinete.sala ? ' - ' : ''}
+									${detalhes.ultimoStatus.gabinete.sala ? `Gabinete ${detalhes.ultimoStatus.gabinete.sala}` : ''}</p>
+								</li>
+							`;
+						}
+						if(dia && mes && ano) {
+							apresentacao += `
+								<li>
+									<p><strong class="h6">Data de nascimento:</strong> ${dia}/${mes}/${ano}</p>
+								</li>
+							`;
+						}
+						if(detalhes.municipioNascimento || detalhes.ufNascimento) {
+							apresentacao += `
+								<li>
+									<p><strong class="h6">Naturalidade:</strong> ${detalhes.municipioNascimento} - ${detalhes.ufNascimento}</p>
+								</li>
+							`;
+						}
+	apresentacao += `</ul>
 					<hr>
 					<button type="button" class="btn btn-warning justify-content-end">Seguir deputad${detalhes.sexo == 'M'? 'o' : 'a'}</button>
 				</div>
