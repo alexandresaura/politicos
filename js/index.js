@@ -1,4 +1,4 @@
-const quantidadePagina = 22;
+const quantidadePagina = 23;
 const quantidadeDeputados = 24;
 
 var paginaAtual = 1;
