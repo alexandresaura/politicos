@@ -4,14 +4,14 @@ const quantidadeDeputados = 24;
 var paginaAtual = 1;
 
 $(document).ready(function() {
-    imprimeDeputados(1);
+    imprimirDeputados(1);
 
     $("#deputadoForm").submit(function(e) {
         e.preventDefault();
     });
 
     $('#buscarDeputado').click(function() {
-        imprimirDeputado($('#deputadoInput').val(), $('#partidoSelect').val());
+        imprimirDeputado($('#deputadoInput').val(), $('#partidoSelect').val(), $('#sexoSelect').val());
     });
 
     $('#deputadoInput').keyup(function(e) {
@@ -19,6 +19,8 @@ $(document).ready(function() {
             $('#buscarDeputado').click();
         }
     });
+
+    imprimirPartidos();
 });
 
 function carregarDeputados(page) {
@@ -46,7 +48,7 @@ function carregarDeputados(page) {
     return deputados;
 }
 
-function imprimePaginas(page) {
+function imprimirPaginas(page) {
     let totalValores = quantidadePagina * quantidadeDeputados;
     paginaAtual = page;
 
@@ -73,7 +75,7 @@ function imprimePaginas(page) {
     `);
 
     $('.page-previous-tab').click(function() {
-        imprimeDeputados(paginaAtual - 1);
+        imprimirDeputados(paginaAtual - 1);
     });
 
     for(let i = pageInicial; i <= pageFinal; i++){
@@ -84,7 +86,7 @@ function imprimePaginas(page) {
         `);
 
         $(`.page${i}-tab`).click(function() {
-            imprimeDeputados(i);
+            imprimirDeputados(i);
         }); 
     }
 
@@ -97,14 +99,14 @@ function imprimePaginas(page) {
     `);
 
     $('.page-next-tab').click(function() {
-        imprimeDeputados(paginaAtual + 1);
+        imprimirDeputados(paginaAtual + 1);
     });    
 }
 
-function imprimeDeputados(page) {
+function imprimirDeputados(page) {
     let deputados = carregarDeputados(page);
 
-    imprimePaginas(page);
+    imprimirPaginas(page);
 
     $('#listaDeputados').html("");
     for(let indice in deputados){
@@ -123,12 +125,12 @@ function imprimeDeputados(page) {
     }
 }
 
-function buscarDeputado(nome, partido) {
+function buscarDeputado(nome, partido, sexo) {
     // Array para armazenar os objetos do tipo Deputado
     let deputados = Array();
 
     // URL da requisição
-    let url = `https://dadosabertos.camara.leg.br/api/v2/deputados?nome=${nome}&siglaPartido=${partido}&idLegislatura=56&ordem=ASC&ordenarPor=nome`;
+    let url = `https://dadosabertos.camara.leg.br/api/v2/deputados?nome=${nome}&siglaPartido=${partido}&siglaSexo=${sexo}&idLegislatura=56&ordem=ASC&ordenarPor=nome`;
     
     // Requisição dos dados dos deputados federais
     let dataJSON = $.parseJSON(
@@ -148,8 +150,8 @@ function buscarDeputado(nome, partido) {
     return deputados;
 }
 
-function imprimirDeputado(nome, partido) {
-    let deputados = buscarDeputado(nome, partido);
+function imprimirDeputado(nome, partido, sexo) {
+    let deputados = buscarDeputado(nome, partido, sexo);
 
     $('#listaDeputados').html("");
     for(let indice in deputados){
@@ -166,4 +168,50 @@ function imprimirDeputado(nome, partido) {
             </div>
         `);
     }
+}
+
+function imprimirPartidos(){
+    let partidos = Array();
+    $.each($('#partidoSelect option'), (indice, valor) => {
+        partidos.push($(valor).val());
+    });
+    partidos.shift();
+
+    for(let i = 0; i < Math.ceil(partidos.length / 5); i++){
+        $('.carousel-inner').append(`
+            <div class="carousel-item">
+                <div class="d-flex justify-content-around"></div>
+            </div>
+        `);
+    }
+    $('.carousel-inner .carousel-item:first').addClass('active');
+    let children = $('.carousel-inner').children();
+    
+    let total = partidos.length;
+    children.each(function(){
+        let conteudoTag = '';
+        let laco = 5 < total ? 5 : partidos.length % 5;
+        for(let i = 0; i < laco; i++){
+            conteudoTag += `
+                <a href="" class="text-white text-center w-100 mx-1"></a>
+            `;
+            total--;
+        }
+        $(this).find('div').append(conteudoTag);
+    });
+
+    let cont = 0;
+    let tag = $('.carousel-item:first');
+    let tagA = tag.find('a:first');
+    partidos.forEach(function(value){
+        if(cont == 5){
+            cont = 0;
+            tag = tag.next();
+            tagA = tag.find('a:first');
+        }
+        tagA.text(value);
+        tagA.attr('href', `partido.html?sigla=${value}`);
+        tagA = tagA.next();
+        cont++;
+    });
 }
