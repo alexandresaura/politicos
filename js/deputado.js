@@ -31,9 +31,9 @@ function imprimeDeputado(deputado){
 
 	imprimeDetalhes(deputado);
 	imprimeDespesas(deputado);
-	imprimeDiscursos(deputado);
+	//imprimeDiscursos(deputado);
 	imprimeEventos(deputado);
-	imprimeFrentes(deputado);
+	//imprimeFrentes(deputado);
 	imprimeOrgaos(deputado);
 	imprimeNoticias(deputado);
 }
@@ -201,7 +201,7 @@ function imprimeDespesas(deputado) {
 	despesasArray.forEach(depesa => {
 		despesasConteudo += `
 			<li>
-				<p><strong class="h6">${depesa}:</strong> ${despesasMap.get(depesa).toFixed(2)}</p>
+				<p><strong class="h6">${depesa}:</strong> R$ ${despesasMap.get(depesa).toFixed(2)}</p>
 			</li>
 		`;
 	});
@@ -213,6 +213,7 @@ function imprimeDespesas(deputado) {
 	$('#accordionExample').append(despesasCard);
 	$('#collapseTwo div').html(despesasConteudo);
 }
+
 
 function imprimeDiscursos(deputado) {
 	let discursos = deputado.obterDiscursos();
@@ -299,7 +300,7 @@ function imprimeEventos(deputado) {
 	$('#accordionExample').append(eventosCard);
 	$('#collapseFour div').html(eventosConteudo);
 }
-
+/*
 function imprimeFrentes(deputado) {
 	let frentes = deputado.obterFrentes();
 	
@@ -325,7 +326,7 @@ function imprimeFrentes(deputado) {
 	$('#accordionExample').append(frentesCard);
 	$('#collapseFive div').html(frentesConteudo);
 }
-
+*/
 function imprimeOrgaos(deputado) {
 	let orgaos = deputado.obterOrgaos();
 

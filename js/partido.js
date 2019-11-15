@@ -129,21 +129,25 @@ function imprimeMembros(partido){
 	`;
 
 	let membrosConteudo = `
-		<ul style="list-style-type: none; padding: 0;">
-	`;
-
-	deputados.forEach(deputado => {
-		membrosConteudo += `
-			<li>
-				<p><strong class="h6"><a href="deputado.html?id=${deputado.id}" class="text-secondary">${deputado.nome}</a></strong></p>
-			</li>
-		`;
-	});
-
-	membrosConteudo += `
-		</ul>
+		<div class="row px-3" id="listaDeputados"></div>
 	`;
 
 	$('#accordionExample').append(membrosCard);
 	$('#collapseOne div').html(membrosConteudo);
+
+	$('#listaDeputados').html("");
+    for(let indice in deputados){
+        let deputado = deputados[indice];
+        $('#listaDeputados').append(`
+            <div class="card col-12 col-md-4 col-lg-2">
+                <img src="${deputado.URLFoto}" class="card-img-top img-fluid px-2" alt="${deputado.nome}">
+                <div class="card-body">
+                    <p class="h5 card-title"><a href="deputado.html?id=${deputado.id}" class="text-dark">${deputado.nome}</a></p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Partido: <a href="partido.html?sigla=${deputado.partido}" class="text-dark">${deputado.partido}</a></small>
+                </div>
+            </div>
+        `);
+    }
 }
